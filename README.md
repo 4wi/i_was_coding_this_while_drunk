@@ -8,6 +8,9 @@
 Probably it may be crashing sometimes cause I haven't updated it for long enough.
 If you researched and fixed some crash/bug, please make a pull request! Also don't create any issues in this project cause I don't really care
 
+### Cloud
+You need to change ws protocol connection to win tcp in monolith project or it wouldn't work with local server presented in the project
+
 ### Credits:
 https://www.youtube.com/watch?v=TD5Qjssu2MM
 
