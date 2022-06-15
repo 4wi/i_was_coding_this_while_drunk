@@ -27,7 +27,7 @@ std::unordered_map< std::string, std::string > pattern_redirs = // changes outda
 	std::make_pair( "55 8B EC 83 EC 18 56 8B 35 ? ? ? ? 57 8B 7D 08", "55 8B EC 83 EC 18 53 56 8B D9 8B 4D 04 57" ),
 	std::make_pair( "55 8B EC 83 E4 F8 81 EC ? ? ? ? 53 56 57 8B 7D 08 89 4C 24 14", "55 8B EC 83 E4 F8 81 EC  0C 04 00 00 53 56 57 8B 7D 08 8B D9 89 5C 24 14" ),
 	std::make_pair( "E8 ? ? ? ? 8B 45 F4 8B 55 F0 47", "E8 ? ? ? ? 8B 45 F4 8B 4D F0 47" ),
-	std::make_pair( "56 8B 35 ? ? ? ? 57 85 F6 74 56", "55 8B EC 8B 4D 04 56 57 8B C1 83 C0 08 8B 35 ? ? ? ? 85 F6 74 57 8B" ),
+	std::make_pair( "56 8B 35 ? ? ? ? 57 85 F6 74 56", "55 8B EC 8B 4D 04 56 57 E8 ? ? ? ? 8B 35 ? ? ? ? 85 F6 74 57 8B" ),
 	std::make_pair( "55 8B EC A1 ? ? ? ? 56 8B 75 08 83 FE FF", "55 8B EC 8B 4D 04 56 8B  C1 83 C0 08 8B 75 08 A1" ),
 };
 
