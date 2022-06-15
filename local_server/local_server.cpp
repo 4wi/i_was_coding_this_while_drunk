@@ -53,7 +53,7 @@ int SendBinary(SOCKET s, char* buf, int* len)
 	return n == -1 ? -1 : 0;
 }
 
-std::vector< std::string > configs =
+std::vector< std::string > configs = // this shit should be fixed
 {
 	"a29uZmlndXJhY2l5YSkpKQ==",
 	"aHVldGE=",

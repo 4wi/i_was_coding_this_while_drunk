@@ -236,7 +236,6 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Helpers\Utils.cpp" />
-    <ClCompile Include="Helpers\WSClient.cpp" />
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="Install.cpp" />
     <ClCompile Include="MinHook\buffer.cpp" />
@@ -251,7 +250,6 @@
     <ClInclude Include="Cheat\CCheat.hpp" />
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Helpers\Utils.hpp" />
-    <ClInclude Include="Helpers\WSClient.hpp" />
     <ClInclude Include="Hooks.hpp" />
     <ClInclude Include="Install.hpp" />
     <ClInclude Include="Json.hpp" />

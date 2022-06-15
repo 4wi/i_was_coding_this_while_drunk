@@ -247,7 +247,6 @@
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bin\Monolith.hpp" />
     <ClInclude Include="Hooks.hpp" />
     <ClInclude Include="Install.hpp" />
     <ClInclude Include="MinHook\buffer.hpp" />

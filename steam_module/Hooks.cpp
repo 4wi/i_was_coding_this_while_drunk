@@ -3,8 +3,6 @@
 
 #include "MinHook/minhook.hpp"
 
-#include "Bin/Monolith.hpp"
-
 #include <filesystem>
 #include <sstream>
 #include <VirtualizerSDK.h>

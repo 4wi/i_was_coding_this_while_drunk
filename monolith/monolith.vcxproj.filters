@@ -59,9 +59,6 @@
     <ClCompile Include="Cheat\CCheat.cpp">
       <Filter>Source Files\Cheat</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\WSClient.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Globals.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -111,9 +108,6 @@
     </ClInclude>
     <ClInclude Include="Binaries\Responses.hpp">
       <Filter>Header Files\Bin</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\WSClient.hpp">
-      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Globals.hpp">
       <Filter>Header Files</Filter>

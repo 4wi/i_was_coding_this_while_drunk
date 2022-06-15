@@ -51,18 +51,16 @@ T* GetInterface( HMODULE hModule, const char* szInterfaceVersion, bool bExact = 
 
 void CCheat::Init( )
 {
-	printf( "shit entered\n" );
-
-    //*reinterpret_cast< uint32_t* >( 0x224628CA ) = 0x108;
-    //*reinterpret_cast< uint32_t* >( 0x224628FA ) = 0x10C;
+    *reinterpret_cast< uint32_t* >( 0x224628CA ) = 0xF0;
+    *reinterpret_cast< uint32_t* >( 0x224628FA ) = 0xF4;
 
     std::vector< uint32_t > aInThirdperson =
     {
         0x227D0E5A, 0x227C340E, 0x2277F467, 0x2277F025,
     };
 
-    //for ( const uint32_t& pAddress : aInThirdperson )
-    //    *reinterpret_cast< uint32_t* >( pAddress ) = 0xC1;
+    for ( const uint32_t& pAddress : aInThirdperson )
+        *reinterpret_cast< uint32_t* >( pAddress ) = 0xA9;
 
 	( ( BOOL ( __stdcall* ) ( DWORD, DWORD, LPVOID ) ) 0x23886B4E )( 0x221B0000, DLL_PROCESS_ATTACH, 0 );
 

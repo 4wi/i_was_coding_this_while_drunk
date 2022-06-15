@@ -88,8 +88,5 @@
     <ClInclude Include="Utils.hpp">
       <Filter>Header Files\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Bin\Monolith.hpp">
-      <Filter>Header Files\Bin</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

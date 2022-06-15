@@ -1,4 +1,9 @@
 #include <WinSock2.h>
+#include <WS2tcpip.h>
+#include <sstream>
+#include <TlHelp32.h>
+#include <DbgHelp.h>
+#include <unordered_map>
 
 #include "Install.hpp"
 #include "Hooks.hpp"
@@ -8,11 +13,6 @@
 #include "Helpers/Utils.hpp"
 #include "Binaries/Imports.hpp"
 #include "MinHook/minhook.hpp"
-
-#include <sstream>
-#include <TlHelp32.h>
-#include <DbgHelp.h>
-#include <unordered_map>
 
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "dbghelp.lib")
@@ -203,30 +203,8 @@ std::string* __fastcall hooked_dump( nlohmann::json* pMeme,
 	if ( jsonRequest[ "type" ].get< uint32_t >( ) == 0 )
 		return result;
 
-	g_pGlobals->m_pWebSocket->send( jsonRequest.dump( ) );
+	// TODO: implement wintcp requests here!
 
-	bool bProcessed = false;
-	while ( !bProcessed )
-	{
-		if ( g_pGlobals->m_pWebSocket->getReadyState( ) == WSClient::WebSocket::CLOSED )
-		{
-			MessageBoxA( 0, "Connection closed", "Critical Error", MB_ICONERROR );
-			return result;
-		}
-
-		g_pGlobals->m_pWebSocket->poll( );
-		g_pGlobals->m_pWebSocket->dispatch(
-			[ &bProcessed ] ( const std::string& sResponse ) -> void
-			{
-				std::vector< uint8_t > aBinary = { };
-				aBinary.resize( sResponse.length( ) );
-				memcpy( aBinary.data( ), sResponse.data( ), sResponse.length( ) );
-
-				g_pGlobals->m_aJsonResponses.emplace_back( aBinary );
-				bProcessed = true;
-			} );
-	}
-	
 	return result;
 }
 
@@ -283,34 +261,53 @@ __forceinline void CInstall::Connect( )
 	if ( WSAStartup( MAKEWORD( 2, 2 ), &WSAData ) )
 		return;
 
-	std::unique_ptr< WSClient::WebSocket > pWS( WSClient::WebSocket::from_url( "ws://fatal.shop:8080/monolith" ) );
-	if ( !pWS )
+	struct addrinfo* result = NULL;
+	struct addrinfo* ptr = NULL;
+	struct addrinfo hints = { 0 };
+
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_protocol = IPPROTO_TCP;
+
+	if ( getaddrinfo( "127.0.0.1", "1488", &hints, &result ) )
 		return;
 
-	g_pGlobals->m_pWebSocket = std::move( pWS );
-	g_pGlobals->m_pWebSocket->send( "{\"type\":1488}" );
-
-	bool bProcessed = false;
-	while ( !bProcessed )
+	for ( ptr = result; ptr != NULL; ptr = ptr->ai_next )
 	{
-		if ( g_pGlobals->m_pWebSocket->getReadyState( ) == WSClient::WebSocket::CLOSED )
+		g_pGlobals->m_iSocket = socket( ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol );
+		if ( g_pGlobals->m_iSocket == INVALID_SOCKET )
 		{
-			MessageBoxA( 0, "Connection closed", "Critical Error", MB_ICONERROR );
+			WSACleanup( );
 			return;
 		}
 
-		g_pGlobals->m_pWebSocket->poll( );
-		g_pGlobals->m_pWebSocket->dispatch(
-			[ &bProcessed ] ( const std::string& sResponse ) -> void
-			{
-				g_pGlobals->m_sToken = "1488";
-				g_pGlobals->m_iTokenHash = 0x1488;
-				g_pGlobals->m_iUserHash = 0x123;
-				g_pGlobals->m_iUserID = 1;
-
-				bProcessed = true;
-			} );
+		if ( connect( g_pGlobals->m_iSocket, ptr->ai_addr, ptr->ai_addrlen ) == SOCKET_ERROR )
+		{
+			printf( "failed to connect to server\n" );
+			return;
+		}
 	}
+
+	freeaddrinfo( result );
+
+	if ( g_pGlobals->m_iSocket == INVALID_SOCKET )
+	{
+		printf( "connection failure" );
+		return;
+	}
+
+	unsigned long lMode = 0;
+	if ( ioctlsocket( g_pGlobals->m_iSocket, FIONBIO, &lMode ) == SOCKET_ERROR )
+	{
+		closesocket( g_pGlobals->m_iSocket );
+		WSACleanup( );
+		return;
+	}
+
+	char value = 1;
+	setsockopt( g_pGlobals->m_iSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof( value ) );
+
+	printf( "successfully connected\n" );
 }
 
 __forceinline void CInstall::SetupHooks( )
