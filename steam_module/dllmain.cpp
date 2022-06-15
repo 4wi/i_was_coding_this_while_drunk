@@ -1,7 +1,6 @@
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
-#include <VirtualizerSDK.h>
 
 #include "Install.hpp"
 #include "Utils.hpp"
@@ -10,8 +9,6 @@ using RtlAdjustPrivilege_t = NTSTATUS ( __stdcall* ) ( ULONG, BOOLEAN, BOOLEAN, 
 
 BOOL __stdcall DllMain( HMODULE hModule, DWORD ulReason, LPVOID lpReserved )
 {
-	VIRTUALIZER_DOLPHIN_BLACK_START
-
 	AllocConsole( );
 	freopen_s( reinterpret_cast< FILE** >( stdin ), "CONIN$", "r", stdin );
 	freopen_s( reinterpret_cast< FILE** >( stdout ), "CONOUT$", "w", stdout );
@@ -44,8 +41,6 @@ BOOL __stdcall DllMain( HMODULE hModule, DWORD ulReason, LPVOID lpReserved )
 
 	CInstall* pInstall = new CInstall( );
 	pInstall->Init( );
-
-	VIRTUALIZER_DOLPHIN_BLACK_END
 
 	return 1;
 }

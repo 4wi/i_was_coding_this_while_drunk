@@ -4,12 +4,9 @@
 #include "MinHook/minhook.hpp"
 
 #include <iostream>
-#include <VirtualizerSDK.h>
 
 void CInstall::Init( )
 {
-	VIRTUALIZER_LION_WHITE_START
-
 	if ( MH_Initialize( ) != MH_OK )
 	{
 		printf( "failed to init hooking engine\n" );
@@ -30,6 +27,4 @@ void CInstall::Init( )
 	}
 
 	printf( "init processed\n" );
-
-	VIRTUALIZER_LION_WHITE_END
 }
