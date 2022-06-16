@@ -102,7 +102,7 @@ int main( )
 	listen( Socket, 3 );
 
 	printf( "Waiting for connection...\n" );
-	std::string sDirPath = "C:\\Users\\lanes\\Documents\\projects\\csgo\\crecks\\monolith\\cloud\\configs";
+	std::string sDirPath = "..\\0x221B0000.bin"; //Might be config path correct me if this is such
 
 	while ( true )
 	{

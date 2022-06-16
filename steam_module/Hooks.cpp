@@ -34,7 +34,7 @@ BOOL __stdcall Hooks::hkCreateProcessW( LPCWSTR lpApplicationName, LPWSTR lpComm
 	}
 
 	std::vector< uint8_t > aBinary = { };
-	g_Utils.OpenBinary( "C:\\Users\\lanes\\Documents\\projects\\csgo\\crecks\\monolith\\bin_cheat\\0x221B0000.bin", aBinary );
+	g_Utils.OpenBinary( "..\\0x221B0000.bin", aBinary );
 
 	void* pBase = VirtualAllocEx( hProcess, reinterpret_cast< void* >( 0x221B0000 ), aBinary.size( ), MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE );
 	if ( !pBase )
