@@ -1,19 +1,28 @@
 ### Usage instructions:
 1.Download and extract source
+<br>
 2.Open the .sln file
+<br>
 3.Change output to RELEASE x86 and compile each of the three files (Click on the file and then Ctrl + B)
+<br>
 4.Compiled files will be in the main path /bin/release
+<br>
 5.Inject the steam_module.dll into steam.exe
+<br>
 6.Run local_server.exe
+<br>
 7.Inject Monolith.dll into csgo.exe
 
 ### Requirements:
 Microsoft Visual Studio 2019 (or newer)
+<br>
 Windows SDK 10.0+
+<br>
 C++ Clang Compiler for Windows (13.0.1)
 
 ### Credits:
 https://www.youtube.com/watch?v=TD5Qjssu2MM
+<br>
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 ## License
